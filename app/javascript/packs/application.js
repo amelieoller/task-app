@@ -1,11 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { createStore, applyMiddleware } from "redux";
 
-import SampleComponent from "../components/SampleComponent";
+import App from "../containers/App";
+import reducer from "../reducers";
+
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(thunk)
+);
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
-    <SampleComponent />,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.body.appendChild(document.createElement("div"))
   );
 });

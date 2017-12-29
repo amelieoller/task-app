@@ -15,6 +15,7 @@ class TaskForm extends Component {
   handleOnSubmit = e => {
     e.preventDefault();
     this.props.addTask({ ...this.state });
+    this.setState({ name: "" });
   };
 
   render() {
@@ -28,6 +29,7 @@ class TaskForm extends Component {
                 className="form-control"
                 type="text"
                 name="name"
+                value={this.state.name}
                 onChange={e => this.handleOnChange(e)}
               />
             </div>

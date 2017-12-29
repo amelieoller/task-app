@@ -13,10 +13,11 @@ class TasksPage extends Component {
         <div className="row">
           <h1>Welcome To your Todo App</h1>
         </div>
-        <TaskForm addTask={this.props.actions.addTask} />
+        <TaskForm createTask={this.props.actions.createTask} />
         <TaskList
           tasks={this.props.tasks}
           deleteTask={this.props.actions.deleteTask}
+          updateTask={this.props.actions.updateTask}
         />
       </div>
     );

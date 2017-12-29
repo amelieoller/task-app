@@ -14,7 +14,7 @@ class TaskForm extends Component {
 
   handleOnSubmit = e => {
     if (e.which === 13) {
-      this.props.addTask({ ...this.state });
+      this.props.createTask({ ...this.state });
       this.setState({ name: "" });
     }
   };

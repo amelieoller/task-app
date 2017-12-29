@@ -1,10 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import NavBar from "../components/NavBar";
+import TaskForm from "../containers/TaskForm";
+import TasksPage from "../containers/TasksPage";
+import * as TaskActions from "../actions/taskActions";
 
-const App = () => (
+const App = ({ tasks, actions }) => (
   <Router>
     <div>
       <NavBar />
@@ -12,20 +17,22 @@ const App = () => (
         exact
         path="/"
         render={() => (
-          <div id="outer">
-            <div className="text-center" id="inner_fixed">
-              <h1>Welcome</h1>
-              <Link to={`/tasks`} className="btn btn-primary margin-right">
-                Tasks
-              </Link>
-            </div>
-            <div id="inner_remaining"></div>
+          <div className="container">
+            <TasksPage />
           </div>
         )}
       />
-      {/* <Route path="/tasks" component={TasksPage} /> */}
+      <Route path="/tasks" component={TasksPage} />
     </div>
   </Router>
 );
 
-export default App;
+const mapStateToProps = state => ({
+  tasks: state.tasks
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(TaskActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

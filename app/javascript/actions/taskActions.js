@@ -17,40 +17,28 @@ export function deleteTaskSuccess(id) {
   return { type: types.DELETE_TASK_SUCCESS, id };
 }
 
-export const loadTasks = () => {
+const dispatchRequest = (apiRequest, action) => {
   return dispatch => {
-    return TasksApi.getAllTasks()
-      .then(tasks => dispatch(loadTasksSuccess(tasks)))
+    return apiRequest
+      .then(tasks => {
+        return dispatch(action(tasks));
+      })
       .catch(error => {
         throw error;
       });
   };
 };
 
+export const loadTasks = () => {
+  return dispatchRequest(TasksApi.getAllTasks(), loadTasksSuccess);
+};
+
 export function createTask(task) {
-  return dispatch => {
-    return TasksApi.createTask(task)
-      .then(task => {
-        dispatch(createTaskSuccess(task));
-        return task;
-      })
-      .catch(error => {
-        throw error;
-      });
-  };
+  return dispatchRequest(TasksApi.createTask(task), createTaskSuccess);
 }
 
 export function updateTask(task) {
-  return dispatch => {
-    return TasksApi.updateTask(task)
-      .then(task => {
-        dispatch(updateTaskSuccess(task));
-        return task;
-      })
-      .catch(error => {
-        throw error;
-      });
-  };
+  return dispatchRequest(TasksApi.updateTask(task), updateTaskSuccess);
 }
 
 export function deleteTask(id) {
@@ -58,7 +46,6 @@ export function deleteTask(id) {
     return TasksApi.deleteTask(id)
       .then(() => {
         dispatch(deleteTaskSuccess(id));
-        return;
       })
       .catch(error => {
         throw error;

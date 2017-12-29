@@ -1,31 +1,22 @@
 import React from "react";
+import TaskItem from "./TaskItem";
 
-const TaskList = ({ tasks, deleteTask }) => {
-  const handleOnClick = task => {
-    deleteTask(task);
-  };
-
+const TaskList = ({ tasks, deleteTask, updateTask }) => {
   return (
     <div className="row">
       <h3>Your Tasks:</h3>
-      {tasks.map(task => (
-        <div className="col-12">
-          <div class="input-group mb-3">
-            <input type="text" value={task.name} />
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button">
-                Edit
-              </button>
-              <button
-                className="btn btn-danger"
-                onClick={() => handleOnClick(task)}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      ))}
+      {tasks
+        .sort(function(a, b) {
+          return a.id - b.id;
+        })
+        .map(task => (
+          <TaskItem
+            task={task}
+            deleteTask={deleteTask}
+            updateTask={updateTask}
+            key={task.id}
+          />
+        ))}
     </div>
   );
 };

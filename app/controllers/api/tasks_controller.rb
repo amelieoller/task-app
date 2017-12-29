@@ -26,6 +26,14 @@ class Api::TasksController < ApplicationController
     end    
   end
 
+  def update
+    if @task.update(task_params)
+      render json: @task
+    else
+      render json: { message: @task.errors }, status: 400
+    end
+  end
+
   private
     def task_params
       params.permit(:name)

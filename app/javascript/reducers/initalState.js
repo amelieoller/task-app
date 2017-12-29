@@ -1,6 +1,7 @@
 export default [
   {
-    name: 'Use Redux',
-    completed: false
+    name: '',
+    completed: false,
+    id: null
   }
 ]

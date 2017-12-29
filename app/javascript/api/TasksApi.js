@@ -9,32 +9,54 @@ class TasksApi {
       });
   }
 
-  static addTask(task) {
-    const request = new Request('http://localhost:5000/api/tasks/', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }), 
+  static createTask(task) {
+    const request = new Request("http://localhost:5000/api/tasks/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(task)
     });
 
-    return fetch(request).then(response => {
-      return response.json();
-    }).catch(error => {
-      return error;
-    });
+    return fetch(request)
+      .then(response => {
+        return response.json();
+      })
+      .catch(error => {
+        return error;
+      });
   }
 
-  static deleteTask(task) {
+  static updateTask(task) {
     const request = new Request(`http://localhost:5000/api/tasks/${task.id}`, {
-      method: 'DELETE'
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(task)
     });
 
-    return fetch(request).then(response => {
-      return response.json();
-    }).catch(error => {
-      return error;
+    return fetch(request)
+      .then(response => {
+        return response.json();
+      })
+      .catch(error => {
+        return error;
+      });
+  }
+
+  static deleteTask(id) {
+    const request = new Request(`http://localhost:5000/api/tasks/${id}`, {
+      method: "DELETE"
     });
+
+    return fetch(request)
+      .then(response => {
+        return response.json();
+      })
+      .catch(error => {
+        return error;
+      });
   }
 }
 

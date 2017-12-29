@@ -6,7 +6,8 @@ class TaskItem extends Component {
 
     this.state = {
       name: this.props.task.name || "",
-      id: this.props.task.id
+      id: this.props.task.id,
+      editing: false
     };
   }
 
@@ -16,13 +17,19 @@ class TaskItem extends Component {
 
   handleOnChange = e => {
     this.setState({
-      name: e.target.value
-    })
+      name: e.target.value,
+      editing: true
+    });
   };
 
   handleOnBlur = (e, id) => {
-    this.props.updateTask({ ...this.state });
-  }
+    if (this.state.editing) {
+      this.props.updateTask({ ...this.state });
+      this.setState({
+        editing: false
+      });
+    }
+  };
 
   render() {
     const { task } = this.props;

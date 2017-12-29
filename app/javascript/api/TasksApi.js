@@ -1,12 +1,16 @@
+const fetchRequest = url => {
+  return fetch(url)
+    .then(response => {
+      return response.json();
+    })
+    .catch(error => {
+      return error;
+    });
+};
+
 class TasksApi {
   static getAllTasks() {
-    return fetch("http://localhost:5000/api/tasks/")
-      .then(response => {
-        return response.json();
-      })
-      .catch(error => {
-        return error;
-      });
+    return fetchRequest("http://localhost:5000/api/tasks/");
   }
 
   static createTask(task) {
@@ -17,14 +21,7 @@ class TasksApi {
       },
       body: JSON.stringify(task)
     });
-
-    return fetch(request)
-      .then(response => {
-        return response.json();
-      })
-      .catch(error => {
-        return error;
-      });
+    return fetchRequest(request);
   }
 
   static updateTask(task) {
@@ -35,28 +32,14 @@ class TasksApi {
       },
       body: JSON.stringify(task)
     });
-
-    return fetch(request)
-      .then(response => {
-        return response.json();
-      })
-      .catch(error => {
-        return error;
-      });
+    return fetchRequest(request);
   }
 
   static deleteTask(id) {
     const request = new Request(`http://localhost:5000/api/tasks/${id}`, {
       method: "DELETE"
     });
-
-    return fetch(request)
-      .then(response => {
-        return response.json();
-      })
-      .catch(error => {
-        return error;
-      });
+    return fetchRequest(request);
   }
 }
 

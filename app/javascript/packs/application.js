@@ -6,12 +6,15 @@ import { createStore, applyMiddleware } from "redux";
 
 import App from "../containers/App";
 import reducer from "../reducers";
+import { loadTasks } from '../actions/taskActions'
 
 const store = createStore(
   reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   applyMiddleware(thunk)
 );
+
+store.dispatch(loadTasks())
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(

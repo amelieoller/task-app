@@ -13,28 +13,31 @@ class TaskForm extends Component {
   };
 
   handleOnSubmit = e => {
-    e.preventDefault();
-    this.props.addTask({ ...this.state });
-    this.setState({ name: "" });
+    if (e.which === 13) {
+      this.props.addTask({ ...this.state });
+      this.setState({ name: "" });
+    }
+  };
+
+  handleBlur = e => {
+    if (!this.props.newTodo) {
+      this.props.onSave(e.target.value);
+    }
   };
 
   render() {
     return (
       <div className="row">
         <div className="col-6">
-          <form className="form-inline" onSubmit={e => this.handleOnSubmit(e)}>
-            <div className="form-group mx-sm-2 mb-2">
-              <input
-                placeholder="Create New Task"
-                className="form-control"
-                type="text"
-                name="name"
-                value={this.state.name}
-                onChange={e => this.handleOnChange(e)}
-              />
-            </div>
-            <input type="submit" className="btn btn-primary mb-2" />
-          </form>
+          <input
+            placeholder="Create New Task"
+            className="form-control"
+            type="text"
+            name="name"
+            value={this.state.name}
+            onChange={this.handleOnChange}
+            onKeyDown={this.handleOnSubmit}
+          />
         </div>
       </div>
     );

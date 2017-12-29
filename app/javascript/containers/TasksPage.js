@@ -9,7 +9,7 @@ import { bindActionCreators } from "redux";
 class TasksPage extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
         <div className="row">
           <h1>Welcome To your Todo App</h1>
         </div>

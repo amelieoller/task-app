@@ -6,7 +6,6 @@ export default function tasksReducer(state = initialState, action) {
     case types.LOAD_TASKS_SUCCESS:
       return action.tasks;
     case types.CREATE_TASK_SUCCESS:
-      // return [...state, action.crop]
       return [
         ...state,
         {

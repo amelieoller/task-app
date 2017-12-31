@@ -21,6 +21,11 @@ const NavBar = props => (
             Tasks
           </NavLink>
         </li>
+        <li className="nav-item">
+          <NavLink to="/projects" className="nav-link">
+            Projects
+          </NavLink>
+        </li>
       </ul>
     </div>
   </nav>

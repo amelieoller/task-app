@@ -20,7 +20,7 @@ class Api::TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      render json: {message: "successfully deleted!"}, status: 204
+      render json: {message: "Successfully deleted!"}, status: 204
     else
       render json: { message: 'Unable to delete' }, status: 400
     end    
@@ -36,7 +36,7 @@ class Api::TasksController < ApplicationController
 
   private
     def task_params
-      params.permit(:name)
+      params.permit(:name, :completed)
     end
 
     def set_task

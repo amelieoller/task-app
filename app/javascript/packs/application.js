@@ -7,6 +7,7 @@ import { createStore, applyMiddleware } from "redux";
 import App from "../containers/App";
 import reducer from "../reducers";
 import { loadTasks } from '../actions/taskActions'
+import '../styles/application'
 
 const store = createStore(
   reducer,

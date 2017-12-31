@@ -7,6 +7,7 @@ import { createStore, applyMiddleware } from "redux";
 import App from "../containers/App";
 import reducer from "../reducers";
 import { loadTasks } from '../actions/taskActions'
+import { loadProjects } from '../actions/projectActions'
 import '../styles/application'
 
 const store = createStore(
@@ -16,6 +17,7 @@ const store = createStore(
 );
 
 store.dispatch(loadTasks())
+store.dispatch(loadProjects())
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(

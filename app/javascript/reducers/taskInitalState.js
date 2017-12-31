@@ -2,6 +2,8 @@ export default [
   {
     name: '',
     completed: false,
-    id: null
+    id: 0,
+    priority: 0,
+    due_date: null
   }
 ]

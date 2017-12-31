@@ -1,7 +1,7 @@
 import * as types from "../actions/actionTypes";
-import initialState from "./initalState";
+import taskInitalState from "./taskInitalState";
 
-export default function tasksReducer(state = initialState, action) {
+export default function tasksReducer(state = taskInitalState, action) {
   switch (action.type) {
     case types.LOAD_TASKS_SUCCESS:
       return action.tasks;
@@ -23,6 +23,13 @@ export default function tasksReducer(state = initialState, action) {
       );
     case types.DELETE_TASK_SUCCESS:
       return state.filter(task => task.id !== action.id);
+    case types.CHECK_TASK_SUCCESS:
+      return state.map(
+        task =>
+          task.id === action.task.id
+            ? { ...task, completed: !task.completed }
+            : task
+      );
     default:
       return state;
   }

@@ -17,6 +17,10 @@ export function deleteTaskSuccess(id) {
   return { type: types.DELETE_TASK_SUCCESS, id };
 }
 
+export function checkTaskSuccess(task) {
+  return { type: types.CHECK_TASK_SUCCESS, task };
+}
+
 const dispatchRequest = (apiRequest, action) => {
   return dispatch => {
     return apiRequest
@@ -51,4 +55,8 @@ export function deleteTask(id) {
         throw error;
       });
   };
+}
+
+export function checkTask(task) {
+  return dispatchRequest(TasksApi.updateTask(task), checkTaskSuccess);
 }

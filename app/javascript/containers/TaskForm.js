@@ -28,7 +28,7 @@ class TaskForm extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col-6">
+        <div className="col-12 mb-3">
           <input
             placeholder="Create New Task"
             className="form-control"

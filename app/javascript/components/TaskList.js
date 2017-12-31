@@ -1,10 +1,9 @@
 import React from "react";
 import TaskItem from "./TaskItem";
 
-const TaskList = ({ tasks, deleteTask, updateTask }) => {
+const TaskList = ({ tasks, deleteTask, updateTask, checkTask }) => {
   return (
-    <div className="row">
-      <h3>Your Tasks:</h3>
+    <ul className="list-group">
       {tasks
         .sort(function(a, b) {
           return a.id - b.id;
@@ -14,10 +13,11 @@ const TaskList = ({ tasks, deleteTask, updateTask }) => {
             task={task}
             deleteTask={deleteTask}
             updateTask={updateTask}
+            checkTask={checkTask}
             key={task.id}
           />
         ))}
-    </div>
+    </ul>
   );
 };
 

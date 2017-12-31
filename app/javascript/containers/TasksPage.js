@@ -9,15 +9,14 @@ import { bindActionCreators } from "redux";
 class TasksPage extends Component {
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <h1>Welcome To your Todo App</h1>
-        </div>
+      <div>
+        <h2>Tasks</h2>
         <TaskForm createTask={this.props.actions.createTask} />
         <TaskList
           tasks={this.props.tasks}
           deleteTask={this.props.actions.deleteTask}
           updateTask={this.props.actions.updateTask}
+          checkTask={this.props.actions.checkTask}
         />
       </div>
     );

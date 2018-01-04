@@ -3,10 +3,10 @@ import TaskItem from "./TaskItem";
 
 const TaskList = ({ tasks, deleteTask, updateTask, checkTask }) => {
   return (
-    <ul className="list-group">
+    <div>
       {tasks
         .sort(function(a, b) {
-          return a.id - b.id;
+          return a.completed - b.completed || a.priority - b.priority;
         })
         .map(task => (
           <TaskItem
@@ -17,7 +17,7 @@ const TaskList = ({ tasks, deleteTask, updateTask, checkTask }) => {
             key={task.id}
           />
         ))}
-    </ul>
+    </div>
   );
 };
 

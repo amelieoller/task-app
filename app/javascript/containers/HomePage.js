@@ -5,8 +5,6 @@ import { bindActionCreators } from "redux";
 
 import ProjectsPage from "./ProjectsPage";
 import TasksPage from "./TasksPage";
-// import Container from "../drag/Container";
-import TestInput from "./TestInput";
 
 class HomePage extends Component {
   render() {

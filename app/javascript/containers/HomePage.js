@@ -5,6 +5,8 @@ import { bindActionCreators } from "redux";
 
 import ProjectsPage from "./ProjectsPage";
 import TasksPage from "./TasksPage";
+// import Container from "../drag/Container";
+import TestInput from "./TestInput";
 
 class HomePage extends Component {
   render() {
@@ -16,9 +18,6 @@ class HomePage extends Component {
         <div className="row">
           <div className="col">
             <TasksPage />
-          </div>
-          <div className="col">
-            <ProjectsPage />
           </div>
         </div>
       </div>

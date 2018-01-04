@@ -1,6 +1,5 @@
 class Api::TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
-
   def index
     render json: Task.all
   end
@@ -36,7 +35,7 @@ class Api::TasksController < ApplicationController
 
   private
     def task_params
-      params.permit(:name, :completed)
+      params.permit(:name, :completed, :project_id, :time, :position, :priority)
     end
 
     def set_task

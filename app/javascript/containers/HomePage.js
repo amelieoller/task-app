@@ -9,14 +9,10 @@ import TasksPage from "./TasksPage";
 class HomePage extends Component {
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <h1>Welcome To your Todo App</h1>
-        </div>
-        <div className="row">
-          <div className="col">
-            <TasksPage />
-          </div>
+      <div className="row">
+        <div className="col">
+          <h1>Homepage</h1>
+          <TasksPage />
         </div>
       </div>
     );

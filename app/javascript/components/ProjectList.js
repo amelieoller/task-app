@@ -3,10 +3,10 @@ import ProjectItem from "./ProjectItem";
 
 const ProjectList = ({ projects, deleteProject, updateProject, checkProject }) => {
   return (
-    <ul className="list-group">
+    <div>
       {projects
         .sort(function(a, b) {
-          return a.id - b.id;
+          return a.completed - b.completed || a.id - b.id;
         })
         .map(project => (
           <ProjectItem
@@ -17,7 +17,7 @@ const ProjectList = ({ projects, deleteProject, updateProject, checkProject }) =
             key={project.id}
           />
         ))}
-    </ul>
+    </div>
   );
 };
 

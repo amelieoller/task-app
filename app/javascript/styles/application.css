@@ -1,6 +1,6 @@
 /* Inputs */
 .remove-input-border {
-  border: none
+  border: none;
 }
 
 div.large-input {
@@ -12,11 +12,11 @@ div.large-input {
 }
 
 .item-completed {
-  color: #868e96
+  color: #868e96;
 }
 
 #timeInput {
-  width: 80px
+  width: 80px;
 }
 
 /* Round checkboxes */

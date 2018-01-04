@@ -1,16 +1,13 @@
-/*** Forms ***/
-
 /* Inputs */
 .remove-input-border {
-  border: none !important;
-  width: 95%;
+  border: none
 }
 
 div.large-input {
   width: 95%;
 }
 
-.delete-button {
+.add-pointer {
   cursor: pointer;
 }
 
@@ -18,7 +15,14 @@ div.large-input {
   color: #868e96
 }
 
+#timeInput {
+  width: 80px
+}
+
 /* Round checkboxes */
+.round {
+  position: relative;
+}
 
 .round label {
   background-color: #fff;
@@ -26,9 +30,9 @@ div.large-input {
   border-radius: 50%;
   cursor: pointer;
   height: 28px;
-  left: 12px;
+  left: 0;
   position: absolute;
-  top: 12px;
+  top: 0;
   width: 28px;
 }
 

@@ -6,14 +6,7 @@ export default function tasksReducer(state = taskInitalState, action) {
     case types.LOAD_TASKS_SUCCESS:
       return action.tasks;
     case types.CREATE_TASK_SUCCESS:
-      return [
-        ...state,
-        {
-          id: action.task.id,
-          completed: false,
-          name: action.task.name
-        }
-      ];
+      return [...state, action.task]
     case types.UPDATE_TASK_SUCCESS:
       return state.map(
         task =>

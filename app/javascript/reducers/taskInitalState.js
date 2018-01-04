@@ -1,9 +1,12 @@
 export default [
   {
-    name: '',
+    name: "",
     completed: false,
     id: 0,
     priority: 0,
-    due_date: null
+    due_date: null,
+    project_id: null,
+    time: 0,
+    position: 0
   }
-]
+];

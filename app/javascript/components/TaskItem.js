@@ -110,7 +110,7 @@ class TaskItem extends Component {
         </div>
 
         {/* Projects */}
-        <div className="col-2">
+        <div className="col-md-3 col-2">
           <label className="sr-only" htmlFor="projectSelect">
             Project
           </label>

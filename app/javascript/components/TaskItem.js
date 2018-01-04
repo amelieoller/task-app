@@ -53,17 +53,17 @@ class TaskItem extends Component {
     const { name, time } = this.state;
 
     return (
-      <form className="form-inline">
+      <form className="form-row align-items-center">
         {/* Move Task */}
-        <div className="col-12 col-sm-auto form-control-static">
+        <div className="col-auto mr-2">
           <Octicon name="three-bars" />
         </div>
 
         {/* Checkbox */}
-        <div className="round p-2">
+        <div className="round p-2 col-auto mr-3">
           <input
             type="checkbox"
-            className="form-control col-12 col-sm-auto mb-2 mr-sm-2 mb-sm-0"
+            className="form-control"
             checked={task.completed}
             id={`task_checkbox_${task.id}`}
             onChange={e => this.handleOnCheck(e, this.state.id)}
@@ -72,80 +72,88 @@ class TaskItem extends Component {
         </div>
 
         {/* Task Name */}
-        <label className="sr-only" htmlFor="taskNameInput">
-          Task Name
-        </label>
-        <input
-          type="text"
-          className={
-            task.completed
-              ? "item-completed col form-control mb-2 mr-sm-2 mb-sm-0 remove-input-border"
-              : "col form-control mb-2 mr-sm-2 mb-sm-0 remove-input-border"
-          }
-          id="taskNameInput"
-          placeholder="Task Name"
-          name="name"
-          value={name}
-          onChange={e => this.handleOnChange(e)}
-          onBlur={e => this.handleOnBlur(e, task.id)}
-        />
+        <div className="col">
+          <label className="sr-only" htmlFor="taskNameInput">
+            Task Name
+          </label>
+          <input
+            type="text"
+            className={
+              task.completed
+                ? "item-completed form-control remove-input-border"
+                : "form-control remove-input-border"
+            }
+            id="taskNameInput"
+            placeholder="Task Name"
+            name="name"
+            value={name}
+            onChange={e => this.handleOnChange(e)}
+            onBlur={e => this.handleOnBlur(e, task.id)}
+          />
+        </div>
 
         {/* Minutes */}
-        <label className="sr-only" htmlFor="timeInput">
-          Minutes
-        </label>
-        <input
-          type="number"
-          className="form-control mb-2 mr-sm-2 mb-sm-0 col-12 col-sm-auto remove-input-border"
-          id="timeInput"
-          placeholder="Minutes"
-          name="time"
-          value={time}
-          onChange={e => this.handleOnChange(e)}
-          onBlur={e => this.handleOnBlur(e, task.id)}
-        />
+        <div className="col-auto">
+          <label className="sr-only" htmlFor="timeInput">
+            Minutes
+          </label>
+          <input
+            type="number"
+            className="form-control remove-input-border"
+            id="timeInput"
+            placeholder="Minutes"
+            name="time"
+            value={time}
+            onChange={e => this.handleOnChange(e)}
+            onBlur={e => this.handleOnBlur(e, task.id)}
+          />
+        </div>
 
         {/* Projects */}
-        <label className="sr-only" htmlFor="projectSelect">
-          Project
-        </label>
-        <select
-          className="form-control mb-2 mr-sm-2 mb-sm-0 col-12 col-sm-auto remove-input-border  add-pointer"
-          id="projectSelect"
-          name="project_id"
-          onChange={e => this.handleOnChange(e)}
-          onBlur={e => this.handleOnBlur(e, task.id)}
-          value={this.state.project_id}
-        >
-          {this.props.projects.map(project => (
-            <option key={`project_${project.id}`} value={project.id}>
-              {project.name}
-            </option>
-          ))}
-        </select>
+        <div className="col-2">
+          <label className="sr-only" htmlFor="projectSelect">
+            Project
+          </label>
+          <select
+            className="form-control remove-input-border add-pointer"
+            id="projectSelect"
+            name="project_id"
+            onChange={e => this.handleOnChange(e)}
+            onBlur={e => this.handleOnBlur(e, task.id)}
+            value={this.state.project_id}
+          >
+            {this.props.projects.map(project => (
+              <option key={`project_${project.id}`} value={project.id}>
+                {project.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {/* Priorities */}
-        <label className="sr-only" htmlFor="prioritySelect">
-          Priority
-        </label>
-        <select
-          className="form-control mb-2 mr-sm-2 mb-sm-0 col-12 col-sm-auto remove-input-border add-pointer"
-          id="prioritySelect"
-          name="priority"
-          onChange={e => this.handleOnChange(e)}
-          onBlur={e => this.handleOnBlur(e, task.id)}
-          value={this.state.priority}
-        >
-          {[1, 2, 3, 4].map(priority => (
-            <option key={`priority_${priority}`} value={priority}>
-              {priority}
-            </option>
-          ))}
-        </select>
+        <div className="col-auto">
+          <label className="sr-only" htmlFor="prioritySelect">
+            Priority
+          </label>
+          <select
+            className="form-control remove-input-border add-pointer"
+            id="prioritySelect"
+            name="priority"
+            onChange={e => this.handleOnChange(e)}
+            onBlur={e => this.handleOnBlur(e, task.id)}
+            value={this.state.priority}
+          >
+            {[1, 2, 3, 4].map(priority => (
+              <option key={`priority_${priority}`} value={priority}>
+                {priority}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {/* Delete */}
         <div
-          className="col-12 col-sm-auto form-control-static add-pointer"
+          className="col-auto form-control-static add-pointer"
           onClick={() => this.handleOnClick(task.id)}
         >
           <Octicon name="x" />

@@ -1,3 +1,5 @@
+const url = "https://react-rails-task-app.herokuapp.com"
+
 const fetchRequest = url => {
   return fetch(url)
     .then(response => {
@@ -10,11 +12,11 @@ const fetchRequest = url => {
 
 class TasksApi {
   static getAllTasks() {
-    return fetchRequest("http://localhost:5000/api/tasks/");
+    return fetchRequest(`${url}/api/tasks/`);
   }
 
   static createTask(task) {
-    const request = new Request("http://localhost:5000/api/tasks/", {
+    const request = new Request(`${url}/api/tasks/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -25,7 +27,7 @@ class TasksApi {
   }
 
   static updateTask(task) {
-    const request = new Request(`http://localhost:5000/api/tasks/${task.id}`, {
+    const request = new Request(`${url}/api/tasks/${task.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -36,7 +38,7 @@ class TasksApi {
   }
 
   static deleteTask(id) {
-    const request = new Request(`http://localhost:5000/api/tasks/${id}`, {
+    const request = new Request(`${url}/api/tasks/${id}`, {
       method: "DELETE"
     });
     return fetchRequest(request);

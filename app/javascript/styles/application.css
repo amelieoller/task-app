@@ -3,46 +3,6 @@ body {
 	margin: 0;
 }
 
-[class*='NavBar-appBar-'] a[class*='MuiTypography-title-'] {
-	text-decoration: none;
-}
-
-.task-list [class*='MuiSelect-icon-'] {
-	display: none !important;
-}
-
-.task-list [class*='MuiSelect-selectMenu-'] {
-	background-color: orange;
-	color: white;
-	border-radius: 4px;
-	padding: 4px 0 4px 11px;
-	font-size: 13px;
-}
-
-.task-list [class*='MuiFormControl-marginNormal-'] {
-	margin-top: 2px;
-	margin-bottom: 2px;
-}
-
-.task-list .timeInput [class*='MuiGrid-typeContainer-'] {
-	min-width: 70px;
-}
-
-.task-list .timeInput [class*='MuiInput-inputSingleline-'] {
-	font-size: 13px;
-	padding-top: 0;
-	padding-bottom: 0;
-}
-
-.task-list .timeInput [class*='MuiIcon-root-'] {
-	padding-left: 20px;
-}
-
-.task-list .timeInput [class*='MuiTypography-body1-'] {
-	font-size: 11px;
-	padding-left: 2px;
-}
-
 .task-list hr {
 	margin: 0;
 	display: block;
@@ -56,8 +16,7 @@ body {
 	margin-bottom: 0;
 }
 
-.NavBar-root-1,
-.NavBar-root-2 {
+[class*='NavBar-root-'] {
 	margin-top: 0 !important;
 }
 

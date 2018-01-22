@@ -30,7 +30,9 @@ const styles = theme => ({
 	textField: {
 		marginLeft: theme.spacing.unit,
 		marginRight: theme.spacing.unit,
-		width: '95%'
+		width: '95%',
+		'margin-top': '2px',
+		'margin-bottom': '2px',
 	},
 	completed: {
 		color: '#868e96'
@@ -41,6 +43,15 @@ const styles = theme => ({
 	timeInput: {
 		'margin-bottom': '3px',
 		'margin-top': '3px'
+	},
+	project: {
+		'background-color': 'orange',
+		'border-radius': '4px',
+		'padding': '0 0 0 10px',
+	},
+	projectText: {
+		'color': 'white',
+		'font-size': '13px',
 	}
 });
 
@@ -121,7 +132,6 @@ class TaskItem extends Component {
 						<Grid item xs>
 							<FormControl
 								className={(classes.formControl, classes.textField)}
-								margin="normal"
 							>
 								<Input
 									className={task.completed ? classes.completed : ''}
@@ -139,11 +149,10 @@ class TaskItem extends Component {
 						{/* Projects */}
 						<Grid item>
 							<FormControl
-								className={(classes.formControl, classes.textField)}
-								margin="normal"
+								className={(classes.formControl, classes.textField, classes.project)}
 							>
 								<Select
-									className={task.completed ? classes.completed : ''}
+									className={classes.projectText}
 									id="projectSelect"
 									name="project_id"
 									title="Project"

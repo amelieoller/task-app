@@ -49,6 +49,9 @@ const styles = theme => ({
 			position: 'relative',
 			height: '100%'
 		}
+	},
+	title: {
+		'text-decoration': 'none'
 	}
 });
 
@@ -85,7 +88,7 @@ class NavBar extends React.Component {
 							>
 								<MenuIcon />
 							</IconButton>
-							<Typography type="title" color="inherit" noWrap className={classes.flex} component={NavLink} to='/'>
+							<Typography type="title" color="inherit" noWrap className={classes.flex, classes.title} component={NavLink} to='/'>
 								Task App
 							</Typography>
 						</Toolbar>

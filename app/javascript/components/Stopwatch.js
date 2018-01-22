@@ -28,7 +28,21 @@ const styles = theme => ({
 		'margin-top': '3px'
 	},
 	stopwatch: {
-    'padding-left': '20px'
+		'padding-left': '20px'
+	},
+	timeContainer: {
+		'min-width': '70px'
+	},
+	timeFont: {
+		'font-size': '13px',
+		'padding-top': 0,
+		'padding-bottom': 0
+	},
+	timeUnit: {
+		'padding-left': '2px'
+	},
+	playPause: {
+		'padding-left': '20px'
 	}
 });
 
@@ -124,24 +138,24 @@ class Stopwatch extends React.Component {
 							classes.timeInput,
 							'timeInput')
 						}
-						margin="normal"
 					>
 						<Grid
 							container
+							className={classes.timeContainer}
 							direction="column"
 							justify="center"
 							alignItems="center"
 						>
 							{this.state.running ? (
 								<Icon
-									className={task.completed ? classes.completed : ''}
+									className={classes.playPause}
 									onClick={e => this.stop(e)}
 								>
 									pause
 								</Icon>
 							) : (
 								<Icon
-									className={task.completed ? classes.completed : ''}
+									className={classes.playPause}
 									onClick={e => this.start(e)}
 								>
 									play_arrow
@@ -154,7 +168,7 @@ class Stopwatch extends React.Component {
 								</Typography>
 							) : (
 								<Input
-									className={task.completed ? classes.completed : ''}
+									className={classes.timeFont}
 									id="timeFormInput"
 									type="number"
 									placeholder="Time"
@@ -166,7 +180,12 @@ class Stopwatch extends React.Component {
 									onBlur={e => this.handleOnBlur(e, task.id)}
 									disableUnderline={true}
 									startAdornment={
-										<InputAdornment position="start">min</InputAdornment>
+										<InputAdornment
+											position="start"
+											className={classes.timeUnit}
+										>
+											min
+										</InputAdornment>
 									}
 								/>
 							)}

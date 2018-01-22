@@ -16,10 +16,6 @@ body {
 	margin-bottom: 0;
 }
 
-[class*='NavBar-root-'] {
-	margin-top: 0 !important;
-}
-
 /* Inputs */
 .remove-input-border {
 	border: none;

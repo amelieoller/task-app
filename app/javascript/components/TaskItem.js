@@ -1,172 +1,222 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import Octicon from "react-octicon";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withStyles } from 'material-ui/styles';
+import MenuItem from 'material-ui/Menu/MenuItem';
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+import Done from 'material-ui-icons/Done';
+import Checkbox from 'material-ui/Checkbox';
+import IconButton from 'material-ui/IconButton';
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
+import Visibility from 'material-ui-icons/Visibility';
+import {
+	FormControl,
+	FormHelperText,
+	FormGroup,
+	FormControlLabel
+} from 'material-ui/Form';
+import Icon from 'material-ui/Icon';
+import Grid from 'material-ui/Grid';
+import Select from 'material-ui/Select';
+import Stopwatch from './Stopwatch';
+
+import compose from 'recompose/compose';
+
+const styles = theme => ({
+	container: {
+		display: 'flex',
+		flexWrap: 'wrap'
+	},
+	textField: {
+		marginLeft: theme.spacing.unit,
+		marginRight: theme.spacing.unit,
+		width: '95%'
+	},
+	completed: {
+		color: '#868e96'
+	},
+	root: {
+		flexGrow: 1
+	},
+	timeInput: {
+		'margin-bottom': '3px',
+		'margin-top': '3px'
+	}
+});
 
 class TaskItem extends Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    const { name, id, completed, project_id, time, priority } = this.props.task;
+		const { name, id, completed, project_id, time, priority } = this.props.task;
 
-    this.state = {
-      name: name || "",
-      id: id,
-      editing: false,
-      completed: completed || false,
-      project_id: project_id || "",
-      time: time || "",
-      priority: priority || 4
-    };
-  }
+		this.state = {
+			name: name || '',
+			id: id,
+			editing: false,
+			completed: completed || false,
+			project_id: project_id || '',
+			time: time || '',
+			priority: priority || 3,
+			hovering: false
+		};
+	}
 
-  handleOnClick = id => {
-    this.props.deleteTask(id);
-  };
+	handleOnClick = id => {
+		this.props.deleteTask(id);
+	};
 
-  handleOnChange = e => {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-      editing: true
-    });
-  };
+	handleOnChange = e => {
+		const { name, value } = e.target;
+		this.setState({
+			[name]: value,
+			editing: true
+		});
+	};
 
-  handleOnBlur = e => {
-    if (this.state.editing) {
-      this.props.updateTask({ ...this.state });
-      this.setState({
-        editing: false
-      });
-    }
-  };
+	handleOnBlur = e => {
+		if (this.state.editing) {
+			this.props.updateTask({ ...this.state });
+			this.setState({
+				editing: false
+			});
+		}
+	};
 
-  handleOnCheck = (e, id) => {
-    const checked = e.target.checked;
-    this.setState({
-      completed: checked
-    });
-    this.props.checkTask({ id: id, completed: checked });
-  };
+	handleOnCheck = (e, id) => {
+		const checked = e.target.checked;
+		this.setState({
+			completed: checked
+		});
+		this.props.checkTask({ id: id, completed: checked });
+	};
 
-  render() {
-    const { task } = this.props;
-    const { name, time } = this.state;
+	handleOnPlay = e => {
+		console.log('working');
+	};
 
-    return (
-      <form className="form-row align-items-center">
-        {/* Move Task */}
-        <div className="col-auto mr-2">
-          <Octicon name="three-bars" />
-        </div>
+	render() {
+		const { classes, autoFocus } = this.props;
+		const { task } = this.props;
+		const { name, time } = this.state;
 
-        {/* Checkbox */}
-        <div className="round p-2 col-auto mr-3">
-          <input
-            type="checkbox"
-            className="form-control"
-            checked={task.completed}
-            id={`task_checkbox_${task.id}`}
-            onChange={e => this.handleOnCheck(e, this.state.id)}
-          />{" "}
-          <label htmlFor={`task_checkbox_${task.id}`} />
-        </div>
+		return (
+			<div className={classes.root}>
+				<form className={classes.container} noValidate autoComplete="off">
+					<Grid container spacing={8} alignItems="center">
+						{/* Check */}
+						<Grid item>
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={task.completed}
+										id={`task_checkbox_${task.id}`}
+										onChange={e => this.handleOnCheck(e, this.state.id)}
+									/>
+								}
+							/>
+						</Grid>
 
-        {/* Task Name */}
-        <div className="col">
-          <label className="sr-only" htmlFor="taskNameInput">
-            Task Name
-          </label>
-          <input
-            type="text"
-            className={
-              task.completed
-                ? "item-completed form-control remove-input-border"
-                : "form-control remove-input-border"
-            }
-            id="taskNameInput"
-            placeholder="Task Name"
-            name="name"
-            value={name}
-            onChange={e => this.handleOnChange(e)}
-            onBlur={e => this.handleOnBlur(e, task.id)}
-          />
-        </div>
+						{/* Task Name Input */}
+						<Grid item xs>
+							<FormControl
+								className={(classes.formControl, classes.textField)}
+								margin="normal"
+							>
+								<Input
+									className={task.completed ? classes.completed : ''}
+									id="taskFormInput"
+									placeholder="Enter a Task Name"
+									name="name"
+									disableUnderline={true}
+									value={name}
+									onChange={e => this.handleOnChange(e)}
+									onBlur={e => this.handleOnBlur(e, task.id)}
+								/>
+							</FormControl>
+						</Grid>
 
-        {/* Minutes */}
-        <div className="col-auto">
-          <label className="sr-only" htmlFor="timeInput">
-            Minutes
-          </label>
-          <input
-            type="number"
-            className="form-control remove-input-border"
-            id="timeInput"
-            placeholder="Minutes"
-            name="time"
-            value={time}
-            onChange={e => this.handleOnChange(e)}
-            onBlur={e => this.handleOnBlur(e, task.id)}
-          />
-        </div>
+						{/* Projects */}
+						<Grid item>
+							<FormControl
+								className={(classes.formControl, classes.textField)}
+								margin="normal"
+							>
+								<Select
+									className={task.completed ? classes.completed : ''}
+									id="projectSelect"
+									name="project_id"
+									title="Project"
+									disableUnderline={true}
+									value={this.state.project_id}
+									onChange={e => this.handleOnChange(e)}
+									onBlur={e => this.handleOnBlur(e, task.id)}
+								>
+									{this.props.projects.map(project => (
+										<MenuItem key={`project_${project.id}`} value={project.id}>
+											{project.name}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+						</Grid>
 
-        {/* Projects */}
-        <div className="col-md-3 col-2">
-          <label className="sr-only" htmlFor="projectSelect">
-            Project
-          </label>
-          <select
-            className="form-control remove-input-border add-pointer"
-            id="projectSelect"
-            name="project_id"
-            onChange={e => this.handleOnChange(e)}
-            onBlur={e => this.handleOnBlur(e, task.id)}
-            value={this.state.project_id}
-          >
-            {this.props.projects.map(project => (
-              <option key={`project_${project.id}`} value={project.id}>
-                {project.name}
-              </option>
-            ))}
-          </select>
-        </div>
+						<Grid item xs={1}>
+							<Stopwatch time={time} task={task} />
+						</Grid>
 
-        {/* Priorities */}
-        <div className="col-auto">
-          <label className="sr-only" htmlFor="prioritySelect">
-            Priority
-          </label>
-          <select
-            className="form-control remove-input-border add-pointer"
-            id="prioritySelect"
-            name="priority"
-            onChange={e => this.handleOnChange(e)}
-            onBlur={e => this.handleOnBlur(e, task.id)}
-            value={this.state.priority}
-          >
-            {[1, 2, 3, 4].map(priority => (
-              <option key={`priority_${priority}`} value={priority}>
-                {priority}
-              </option>
-            ))}
-          </select>
-        </div>
+						{/* Priorities */}
+						{/* <Grid item xs={1}>
+							<FormControl
+								className={(classes.formControl, classes.textField)}
+								margin="normal"
+							>
+								<Select
+									className={task.completed ? classes.completed : ''}
+									id="prioritySelect"
+									name="priority"
+									title="Priority"
+									disableUnderline={true}
+									value={this.state.priority}
+									onChange={e => this.handleOnChange(e)}
+									onBlur={e => this.handleOnBlur(e, task.id)}
+									startAdornment={
+										<InputAdornment position="start">
+											<Icon>priority_high</Icon>
+										</InputAdornment>
+									}
+								>
+									{[1, 2, 3].map(priority => (
+										<MenuItem key={`priority_${priority}`} value={priority}>
+											{priority}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+						</Grid> */}
 
-        {/* Delete */}
-        <div
-          className="col-auto form-control-static add-pointer"
-          onClick={() => this.handleOnClick(task.id)}
-        >
-          <Octicon name="x" />
-        </div>
-      </form>
-    );
-  }
+						{/* Delete */}
+						<Grid item>
+							<IconButton
+								className={task.completed ? classes.completed : ''}
+								aria-label="Delete"
+								onClick={() => this.handleOnClick(task.id)}
+							>
+								<Icon>delete</Icon>
+							</IconButton>
+						</Grid>
+					</Grid>
+				</form>
+				<hr />
+			</div>
+		);
+	}
 }
 
 function mapStateToProps(state, ownProps) {
-  return {
-    projects: state.projects
-  };
+	return {
+		projects: state.projects
+	};
 }
 
-export default connect(mapStateToProps)(TaskItem);
+export default compose(withStyles(styles), connect(mapStateToProps))(TaskItem);

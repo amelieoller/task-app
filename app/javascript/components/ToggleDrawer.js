@@ -10,6 +10,7 @@ import InboxIcon from 'material-ui-icons/Inbox';
 import DraftsIcon from 'material-ui-icons/Drafts';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
+import Icon from 'material-ui/Icon';
 
 const styles = {
 	list: {
@@ -36,21 +37,20 @@ class ToggleDrawer extends React.Component {
 	};
 
 	render() {
-
 		return (
 			<div>
 				<List>
-					<ListItem component={NavLink} to="/projects" button>
-						<ListItemIcon>
-							<InboxIcon />
-						</ListItemIcon>
-						<ListItemText primary="Projects" />
-					</ListItem>
 					<ListItem component={NavLink} to="/tasks" button>
 						<ListItemIcon>
-							<DraftsIcon />
+							<Icon>check</Icon>
 						</ListItemIcon>
 						<ListItemText primary="Tasks" />
+					</ListItem>
+					<ListItem component={NavLink} to="/projects" button>
+						<ListItemIcon>
+							<Icon>done_all</Icon>
+						</ListItemIcon>
+						<ListItemText primary="Projects" />
 					</ListItem>
 				</List>
 				<Divider />

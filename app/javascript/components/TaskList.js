@@ -3,7 +3,7 @@ import TaskItem from "./TaskItem";
 
 const TaskList = ({ tasks, deleteTask, updateTask, checkTask }) => {
   return (
-    <div>
+    <div className="task-list">
       {tasks
         .sort(function(a, b) {
           return a.completed - b.completed || a.priority - b.priority;

@@ -3,9 +3,12 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.2.0",
+    "autosuggest-highlight": "^3.1.1",
     "babel-preset-react": "^6.24.1",
     "bootstrap": "^3.3.7",
     "coffeescript": "1.12.7",
+    "material-ui": "^1.0.0-beta.29",
+    "material-ui-icons": "^1.0.0-beta.17",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-autosuggest": "^9.3.2",
@@ -13,12 +16,15 @@
     "react-octicon": "^3.0.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-form": "^7.2.0",
     "redux-thunk": "^2.2.0",
     "thunk": "0.0.1"
   },
   "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-plugin-react": "^7.5.1",
     "webpack-dev-server": "^2.9.7"
   }
 }

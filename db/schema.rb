@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20171228194520) do
     t.boolean "completed", default: false
     t.integer "time"
     t.integer "position"
-    t.integer "priority", default: 4
+    t.integer "priority", default: 3
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

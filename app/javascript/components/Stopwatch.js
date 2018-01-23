@@ -10,39 +10,21 @@ import {
 } from 'material-ui/Form';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import Typography from 'material-ui/Typography';
+import TextField from 'material-ui/TextField';
 
 const styles = theme => ({
-	textField: {
-		marginLeft: theme.spacing.unit,
-		marginRight: theme.spacing.unit,
-		width: '95%'
-	},
 	completed: {
 		color: '#868e96'
 	},
-	root: {
-		flexGrow: 1
-	},
-	timeInput: {
-		'margin-bottom': '3px',
-		'margin-top': '3px'
-	},
-	stopwatch: {
-		'padding-left': '20px'
-	},
-	timeContainer: {
-		'min-width': '70px'
-	},
 	timeFont: {
 		'font-size': '13px',
-		'padding-top': 0,
-		'padding-bottom': 0
 	},
 	timeUnit: {
-		'padding-left': '2px'
+		'padding-left': '2px',
+		float: 'left'
 	},
-	playPause: {
-		'padding-left': '20px'
+	formControl: {
+		padding: 0
 	}
 });
 
@@ -55,8 +37,17 @@ class Stopwatch extends React.Component {
 			running: false,
 			miliseconds: 0,
 			seconds: 0,
-			minutes: 0
+			minutes: 0,
+			width: ''
 		};
+	}
+
+	componentDidMount() {
+		// e.target.style.width = (e.target.value.length + 4) * 7 + 'px';
+		this.setState({
+			width: '20px'
+		});
+		// document.getElementById('timeFormInput').style.width = '10px'
 	}
 
 	start = e => {
@@ -121,7 +112,7 @@ class Stopwatch extends React.Component {
 		const { classes, task, time } = this.props;
 
 		return (
-			<div>
+			<div className="time-input">
 				<nav>
 					{/* <button onClick={e => this.reset(e)}>reset</button>
 					<button onClick={e => this.lap(e)}>lap</button> */}
@@ -130,67 +121,52 @@ class Stopwatch extends React.Component {
 					{this.state.laps.map(lapTime => <li>{lapTime}</li>)}
 				</ul> */}
 
-				<Grid item xs={1}>
-					<FormControl
-						className={
-							(classes.formControl,
-							classes.textField,
-							classes.timeInput,
-							'timeInput')
-						}
-					>
+				<Grid
+					item
+					container
+					direction="column"
+					justify="center"
+					alignItems="center"
+				>
+					{this.state.running ? (
+						<Icon className={classes.playPause} onClick={e => this.stop(e)}>
+							pause
+						</Icon>
+					) : (
+						<Icon className={classes.playPause} onClick={e => this.start(e)}>
+							play_arrow
+						</Icon>
+					)}
+
+					{this.state.running ? (
+						<Typography type="caption" className={classes.stopwatch}>
+							{this.state.text}
+						</Typography>
+					) : (
 						<Grid
+							item
 							container
-							className={classes.timeContainer}
-							direction="column"
+							direction="row"
 							justify="center"
 							alignItems="center"
+							style={{ padding: 0 }}
 						>
-							{this.state.running ? (
-								<Icon
-									className={classes.playPause}
-									onClick={e => this.stop(e)}
-								>
-									pause
-								</Icon>
-							) : (
-								<Icon
-									className={classes.playPause}
-									onClick={e => this.start(e)}
-								>
-									play_arrow
-								</Icon>
-							)}
-
-							{this.state.running ? (
-								<Typography type="caption" className={classes.stopwatch}>
-									{this.state.text}
-								</Typography>
-							) : (
-								<Input
-									className={classes.timeFont}
-									id="timeFormInput"
-									type="number"
-									placeholder="Time"
-									name="time"
-									dir="rtl"
-									title="Minutes"
-									value={time}
-									onChange={e => this.handleOnChange(e)}
-									onBlur={e => this.handleOnBlur(e, task.id)}
-									disableUnderline={true}
-									startAdornment={
-										<InputAdornment
-											position="start"
-											className={classes.timeUnit}
-										>
-											min
-										</InputAdornment>
-									}
-								/>
-							)}
+							<Input
+								className={classes.timeFont}
+								style={time.toString().length == 1 ? {width: '8px'} : {width: '15px'}}
+								id="timeFormInput"
+								name="time"
+								type="number"
+								value={time}
+								disableUnderline={true}
+								onChange={e => this.props.handleOnChange(e)}
+								onBlur={e => this.props.handleOnBlur(e, task.id)}
+							/>
+							<Typography type="caption" className={classes.timeUnit}>
+								min
+							</Typography>
 						</Grid>
-					</FormControl>
+					)}
 				</Grid>
 			</div>
 		);

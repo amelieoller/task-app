@@ -74,6 +74,7 @@ function getSuggestionValue(suggestion) {
 	//   return this.state.value;
 	// }
 	// this.props.handleProjectSuggest(suggestion.id)
+
 	return suggestion.name;
 }
 
@@ -81,17 +82,15 @@ function onBlur(event, { highlightedSuggestion }) {}
 
 const styles = theme => ({
 	container: {
-		// flexGrow: 1,
 		position: 'relative'
-		// height: 200,
 	},
 	suggestionsContainerOpen: {
 		position: 'absolute',
 		marginTop: theme.spacing.unit,
 		marginBottom: theme.spacing.unit * 3,
 		left: 0,
-    right: 0,
-    'z-index': 1
+		right: 0,
+		'z-index': 1
 	},
 	suggestion: {
 		display: 'block'
@@ -109,17 +108,17 @@ const styles = theme => ({
 });
 
 class ProjectSuggest extends React.Component {
-	state = {
-		value: '',
-		suggestions: []
-	};
+		state = {
+			value: '',
+			suggestions: []
+		};
 
 	getSuggestions = value => {
 		const inputValue = value.trim().toLowerCase();
 		const inputLength = inputValue.length;
 		let count = 0;
 		return inputLength === 0
-			? []
+			? this.props.projects.filter(suggestion => suggestion.name)
 			: // ? [{ isAddNew: true }]
 				this.props.projects.filter(suggestion => {
 					const keep =
@@ -152,8 +151,18 @@ class ProjectSuggest extends React.Component {
 		});
 	};
 
-	handleBlur = (event, { highlightedSuggestion }) => {
-		console.log(`Project name: ${this.state.value}`);
+	handleBlur = () => {
+		const value = this.state.value;
+		let id = '';
+
+		this.props.projects.map(function(project) {
+			if (project.name.toLowerCase() === value.toLowerCase()) {
+				id = project.id;
+				return id;
+			}
+		});
+		
+		id ? this.props.setProjectId(id) : this.props.createProjectFromTask(value);
 	};
 
 	render() {
@@ -175,6 +184,7 @@ class ProjectSuggest extends React.Component {
 				getSuggestionValue={getSuggestionValue}
 				renderSuggestion={renderSuggestion}
 				onSuggestionSelected={this.clearInput}
+				shouldRenderSuggestions={() => true}
 				inputProps={{
 					classes,
 					placeholder: 'Enter a Project',

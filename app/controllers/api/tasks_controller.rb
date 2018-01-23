@@ -10,6 +10,10 @@ class Api::TasksController < ApplicationController
 
   def create
     task = Task.new(task_params)
+    if params[:project_name] != ''
+      task.create_project(name: params[:project_name])
+    end
+
     if task.save
       render json: task
     else

@@ -41,7 +41,8 @@ class TaskForm extends Component {
 		name: '',
 		project_id: '',
 		time: '',
-		priority: ''
+		priority: '',
+		new_project_name: ''
 	};
 
 	handleOnChange = e => {
@@ -57,22 +58,34 @@ class TaskForm extends Component {
 		});
 	};
 
-	handleProjectCreation = newProject => {
-		console.log(newProject);
-	};
-
 	handleOnSubmit = e => {
 		if (this.state.name) {
 			if (e.which === 13 || e.currentTarget.type === 'button') {
-				this.props.createTask({ ...this.state });
+				this.props.createTask({
+					name: this.state.name,
+					project_id: this.state.project_id,
+					time: this.state.time,
+					priority: this.state.priority ? this.state.priority : 3,
+					project_name: this.state.new_project_name
+				});
 				this.setState({ name: '', project_id: '', time: '', priority: '' });
 			}
 		}
 	};
 
+	setProjectId = id => {
+		this.setState({
+			project_id: id
+		});
+	};
+
+	createProjectFromTask = name => {
+		this.setState({new_project_name: name})
+	}
+
 	render() {
 		const { classes, autoFocus } = this.props;
-
+		console.log(this.state)
 		return (
 			<div className={classes.root}>
 				<form className={classes.container} noValidate autoComplete="off">
@@ -114,8 +127,8 @@ class TaskForm extends Component {
 						<Grid item xs={2}>
 							<ProjectSuggest
 								projects={this.props.projects}
-								handleProjectSuggest={this.handleProjectSuggest}
-								handleProjectCreation={this.handleProjectCreation}
+								setProjectId={this.setProjectId}
+								createProjectFromTask={this.createProjectFromTask}
 							/>
 						</Grid>
 
@@ -156,7 +169,6 @@ class TaskForm extends Component {
 								Done
 							</Button>
 						</Grid>
-
 					</Grid>
 				</form>
 			</div>

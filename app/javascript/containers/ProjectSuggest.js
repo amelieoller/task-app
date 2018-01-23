@@ -43,7 +43,7 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
 			<div>
 				{parts.map((part, index) => {
 					return part.highlight ? (
-						<span key={String(index)} style={{ fontWeight: 300 }}>
+						<span key={String(index)} style={{ fontWeight: 800 }}>
 							{part.text}
 						</span>
 					) : (
@@ -68,13 +68,6 @@ function renderSuggestionsContainer(options) {
 }
 
 function getSuggestionValue(suggestion) {
-	// if (suggestion.isAddNew) {
-	//   this.props.actions.createProject({ name: this.state.value });
-	//   this.props.handleProjectCreation(suggestion)
-	//   return this.state.value;
-	// }
-	// this.props.handleProjectSuggest(suggestion.id)
-
 	return suggestion.name;
 }
 
@@ -88,9 +81,12 @@ const styles = theme => ({
 		position: 'absolute',
 		marginTop: theme.spacing.unit,
 		marginBottom: theme.spacing.unit * 3,
+		marginLeft: theme.spacing.unit,
 		left: 0,
 		right: 0,
-		'z-index': 1
+		zIndex: 1,
+		width: 'fit-content',
+		'max-width': '300px'
 	},
 	suggestion: {
 		display: 'block'
@@ -108,10 +104,10 @@ const styles = theme => ({
 });
 
 class ProjectSuggest extends React.Component {
-		state = {
-			value: '',
-			suggestions: []
-		};
+	state = {
+		value: '',
+		suggestions: []
+	};
 
 	getSuggestions = value => {
 		const inputValue = value.trim().toLowerCase();
@@ -161,7 +157,7 @@ class ProjectSuggest extends React.Component {
 				return id;
 			}
 		});
-		
+
 		id ? this.props.setProjectId(id) : this.props.createProjectFromTask(value);
 	};
 

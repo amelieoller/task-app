@@ -85,7 +85,6 @@ class TaskForm extends Component {
 
 	render() {
 		const { classes, autoFocus } = this.props;
-		console.log(this.state)
 		return (
 			<div className={classes.root}>
 				<form className={classes.container} noValidate autoComplete="off">

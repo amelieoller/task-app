@@ -10,14 +10,11 @@ import {
 } from 'material-ui/Form';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
+import TimeInput from './TimeInput';
 
 const styles = theme => ({
-	completed: {
-		color: '#868e96'
-	},
 	timeFont: {
-		'font-size': '13px',
+		'font-size': '13px'
 	},
 	timeUnit: {
 		'padding-left': '2px',
@@ -143,29 +140,12 @@ class Stopwatch extends React.Component {
 							{this.state.text}
 						</Typography>
 					) : (
-						<Grid
-							item
-							container
-							direction="row"
-							justify="center"
-							alignItems="center"
-							style={{ padding: 0 }}
-						>
-							<Input
-								className={classes.timeFont}
-								style={time.toString().length == 1 ? {width: '8px'} : {width: '15px'}}
-								id="timeFormInput"
-								name="time"
-								type="number"
-								value={time}
-								disableUnderline={true}
-								onChange={e => this.props.handleOnChange(e)}
-								onBlur={e => this.props.handleOnBlur(e, task.id)}
-							/>
-							<Typography type="caption" className={classes.timeUnit}>
-								min
-							</Typography>
-						</Grid>
+						<TimeInput
+							handleOnChange={this.props.handleOnChange}
+							handleOnBlur={this.props.handleOnBlur}
+							task={task}
+							time={time}
+						/>
 					)}
 				</Grid>
 			</div>

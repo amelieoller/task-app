@@ -47,14 +47,33 @@ const styles = theme => ({
 	project: {
 		'background-color': 'rgba(0, 0, 0, 0.54)',
 		'border-radius': '4px',
-		padding: '0 0 0 20px'
+		'& svg': {
+			display: 'none',
+		}
 	},
 	projectText: {
 		color: 'white',
-		'font-size': '13px'
+		'font-size': '12px',
+		'& div': {
+			padding: '1.5px 3px',
+		}
 	},
 	checkbox: {
 		'margin-right': '0px'
+	},
+	noProject: {
+		'font-style': 'italic',
+		color: 'grey',
+		'font-size': '12px',
+		'& svg': {
+			top: '-1.2px',
+		},
+		'& div': {
+			padding: '1.5px 11.8px 1.5px 3px',
+		}
+	},
+	noProjectContainer: {
+		'background-color': 'none',
 	}
 });
 
@@ -62,7 +81,15 @@ class TaskItem extends Component {
 	constructor(props) {
 		super(props);
 
-		const { name, id, completed, project_id, time, priority, project_name } = this.props.task;
+		const {
+			name,
+			id,
+			completed,
+			project_id,
+			time,
+			priority,
+			project_name
+		} = this.props.task;
 
 		this.state = {
 			name: name || '',
@@ -119,7 +146,7 @@ class TaskItem extends Component {
 	render() {
 		const { classes, autoFocus } = this.props;
 		const { task } = this.props;
-		const { name, time, project_name } = this.state;
+		const { name, time, project_name, project_id } = this.state;
 
 		return (
 			<div className={classes.root}>
@@ -160,21 +187,22 @@ class TaskItem extends Component {
 						<Grid item>
 							<FormControl
 								className={
-									(classes.formControl, classes.textField, classes.project)
+									project_name || project_id ? (classes.formControl, classes.textField, classes.project) : classes.noProjectContainer
 								}
 							>
 								<Select
-									className={classes.projectText}
+									className={project_name || project_id ? classes.projectText : classes.noProject}
 									id="projectSelect"
 									name="project_id"
 									title="Project"
 									disableUnderline={true}
-									value={this.state.project_id}
+									value={project_id}
 									onChange={e => this.handleOnChange(e)}
 									onBlur={e => this.handleOnBlur(e, task.id)}
+									displayEmpty
 								>
-									{project_name ? project_name :
-									this.props.projects.map(project => (
+									<MenuItem value="" key="empty">{project_name ? project_name : 'No Project'}</MenuItem>
+									{this.props.projects.map(project => (
 										<MenuItem key={`project_${project.id}`} value={project.id}>
 											{project.name}
 										</MenuItem>
@@ -183,7 +211,7 @@ class TaskItem extends Component {
 							</FormControl>
 						</Grid>
 
-						<Grid item xs={1}>
+						<Grid item sm={1} xs={2}>
 							<Stopwatch
 								time={time}
 								task={task}
@@ -226,7 +254,6 @@ class TaskItem extends Component {
 						{/* Delete */}
 						<Grid item>
 							<IconButton
-								className={task.completed ? classes.completed : ''}
 								aria-label="Delete"
 								onClick={() => this.handleOnClick(task.id)}
 							>

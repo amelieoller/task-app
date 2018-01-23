@@ -32,7 +32,7 @@ const styles = theme => ({
 		marginRight: theme.spacing.unit,
 		width: '95%',
 		'margin-top': '2px',
-		'margin-bottom': '2px',
+		'margin-bottom': '2px'
 	},
 	completed: {
 		color: '#868e96'
@@ -45,13 +45,16 @@ const styles = theme => ({
 		'margin-top': '3px'
 	},
 	project: {
-		'background-color': 'orange',
+		'background-color': 'rgba(0, 0, 0, 0.54)',
 		'border-radius': '4px',
-		'padding': '0 0 0 10px',
+		padding: '0 0 0 20px'
 	},
 	projectText: {
-		'color': 'white',
-		'font-size': '13px',
+		color: 'white',
+		'font-size': '13px'
+	},
+	checkbox: {
+		'margin-right': '0px'
 	}
 });
 
@@ -59,7 +62,7 @@ class TaskItem extends Component {
 	constructor(props) {
 		super(props);
 
-		const { name, id, completed, project_id, time, priority } = this.props.task;
+		const { name, id, completed, project_id, time, priority, project_name } = this.props.task;
 
 		this.state = {
 			name: name || '',
@@ -69,7 +72,8 @@ class TaskItem extends Component {
 			project_id: project_id || '',
 			time: time || '',
 			priority: priority || 3,
-			hovering: false
+			hovering: false,
+			project_name: project_name || ''
 		};
 	}
 
@@ -102,14 +106,20 @@ class TaskItem extends Component {
 		this.props.checkTask({ id: id, completed: checked });
 	};
 
-	handleOnPlay = e => {
-		console.log('working');
+	priorityClass = () => {
+		if (this.props.task.priority === 1) {
+			return { color: '#E53935' };
+		} else if (this.props.task.priority === 2) {
+			return { color: '#FB8C00' };
+		} else {
+			return { color: 'grey' };
+		}
 	};
 
 	render() {
 		const { classes, autoFocus } = this.props;
 		const { task } = this.props;
-		const { name, time } = this.state;
+		const { name, time, project_name } = this.state;
 
 		return (
 			<div className={classes.root}>
@@ -118,8 +128,10 @@ class TaskItem extends Component {
 						{/* Check */}
 						<Grid item>
 							<FormControlLabel
+								className={classes.checkbox}
 								control={
 									<Checkbox
+										style={this.priorityClass()}
 										checked={task.completed}
 										id={`task_checkbox_${task.id}`}
 										onChange={e => this.handleOnCheck(e, this.state.id)}
@@ -130,9 +142,7 @@ class TaskItem extends Component {
 
 						{/* Task Name Input */}
 						<Grid item xs>
-							<FormControl
-								className={(classes.formControl, classes.textField)}
-							>
+							<FormControl className={(classes.formControl, classes.textField)}>
 								<Input
 									className={task.completed ? classes.completed : ''}
 									id="taskFormInput"
@@ -149,7 +159,9 @@ class TaskItem extends Component {
 						{/* Projects */}
 						<Grid item>
 							<FormControl
-								className={(classes.formControl, classes.textField, classes.project)}
+								className={
+									(classes.formControl, classes.textField, classes.project)
+								}
 							>
 								<Select
 									className={classes.projectText}
@@ -161,7 +173,8 @@ class TaskItem extends Component {
 									onChange={e => this.handleOnChange(e)}
 									onBlur={e => this.handleOnBlur(e, task.id)}
 								>
-									{this.props.projects.map(project => (
+									{project_name ? project_name :
+									this.props.projects.map(project => (
 										<MenuItem key={`project_${project.id}`} value={project.id}>
 											{project.name}
 										</MenuItem>
@@ -171,7 +184,13 @@ class TaskItem extends Component {
 						</Grid>
 
 						<Grid item xs={1}>
-							<Stopwatch time={time} task={task} />
+							<Stopwatch
+								time={time}
+								task={task}
+								handleOnChange={this.handleOnChange}
+								handleOnBlur={this.handleOnBlur}
+								projects={this.props.projects}
+							/>
 						</Grid>
 
 						{/* Priorities */}

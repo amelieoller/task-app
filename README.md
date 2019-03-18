@@ -3,8 +3,10 @@ Everybody needs to have built a Todo App in their lives, right? Well, here is mi
 
 ## Getting Started
 1. Clone the project to your computer with `git clone https://github.com/amelieoller/task-app`
-2. Open it and run `foreman start` in your terminal
-3. You should be able to visit the app at `http://localhost:5000/` in your browser
+2. Run `bundle install` and `yarn` (or `npm install`) in your terminal to install all dependencies
+3. Create a postgres database with `createdb todo-app_development` and run the migrations with `rake db:migrate`
+4. Open it and run `foreman start` in your terminal
+5. You should be able to visit the app at `http://localhost:5000/` in your browser
 
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at https://github.com/amelieoller/task-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.

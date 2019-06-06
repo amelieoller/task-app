@@ -4,7 +4,7 @@ import ProjectItem from "./ProjectItem";
 const ProjectList = ({ projects, deleteProject, updateProject, checkProject }) => {
   return (
     <div>
-      {projects
+      {projects && projects
         .sort(function(a, b) {
           return a.completed - b.completed || a.id - b.id;
         })

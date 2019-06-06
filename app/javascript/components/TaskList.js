@@ -4,7 +4,7 @@ import TaskItem from "./TaskItem";
 const TaskList = ({ tasks, deleteTask, updateTask, checkTask }) => {
   return (
     <div className="task-list">
-      {tasks
+      {tasks && tasks
         .sort(function(a, b) {
           return a.completed - b.completed || a.priority - b.priority;
         })

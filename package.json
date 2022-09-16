@@ -5,7 +5,7 @@
     "@rails/webpacker": "^3.2.0",
     "autosuggest-highlight": "^3.1.1",
     "babel-preset-react": "^6.24.1",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "coffeescript": "1.12.7",
     "material-ui": "^1.0.0-beta.29",
     "material-ui-icons": "^1.0.0-beta.17",
